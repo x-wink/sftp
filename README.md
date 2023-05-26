@@ -1,7 +1,7 @@
-<h1 align="center">欢迎使用我的库项目模板 👋</h1>
+<h1 align="center">欢迎使用我的SFTP命令行工具 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
-  <a href="https://github.com/x-wink/libary-template#readme" target="_blank">
+  <a href="https://github.com/x-wink/wink-sftp#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
 </p>
@@ -9,21 +9,37 @@
 ## ⬇️ 使用方式
 
 ```cmd
-npx degit x-wink/libary-template#main my-project
-cd my-project
-npm install
-npm run dev
+npm install --save-dev @xwink/sftp
+wink-sftp <local> <remote> [options]
+```
+
+## 🎟️ 配置文件
+
+```json
+{
+    "local": "",
+    "remote": "",
+    "debug": false,
+    "connect": {
+        "host": "",
+        "port": 22,
+        "username": "",
+        "password": ""
+    },
+    "sftpOptions": {
+        "excludes": [],
+        "flat": false,
+        "clear": false,
+        "override": false,
+        "debug": false
+    }
+}
 ```
 
 ## 🎯 框架依赖
 
--   [Vite](https://cn.vitejs.dev/) 脚手架
--   [Typescript](https://www.tslang.cn) JavaScript 的超集
--   [Eslint](https://eslint.bootcss.com/) 可组装的 JavaScript 和 JSX 检查工具
--   [Prettier](https://prettier.io/) 代码格式化程序
--   [LintStaged](https://github.com/okonet/lint-staged#readme) 针对暂存的 git 文件运行检查
--   [Husky](https://typicode.github.io/husky) 改善你的提交
--   [CommitLint](https://github.com/conventional-changelog/commitlint#readme) 检查代码提交消息
+-   [ssh2](github.com/mscdex/ssh2) 创建 SSH 连接
+-   [commander](github.com/tj/commander.js) `nodejs`命令行解决方案
 
 ## 👤 Author
 

@@ -4,6 +4,7 @@ import path from 'path';
 import fs from 'fs';
 const client = new Client();
 const resolvePath = (...paths: string[]) => path.resolve(...[process.cwd(), ...paths]);
+const linuxPath = (...paths: string[]) => path.join(...paths).replaceAll(path.sep, '/');
 const exec = (command: string, debug = false) => {
     return new Promise<string[]>((resolve, reject) => {
         client.exec(command, (err, stream) => {
@@ -43,12 +44,16 @@ const scan = (dir: string, excludes: string[] = [], parent = '') => {
     } else {
         if (fs.existsSync(dir)) {
             if (fs.statSync(dir).isDirectory()) {
-                if (parent) {
-                    res.dirs.push(dir);
+                if (dir.split(path.sep).some((name) => name.indexOf('.') !== -1)) {
+                    console.info('跳过隐藏文件夹：' + dir);
+                } else {
+                    if (parent) {
+                        res.dirs.push(dir);
+                    }
+                    const temp = fs.readdirSync(dir).flatMap((item) => scan(item, excludes, dir));
+                    res.files.push(...temp.flatMap((item) => item.files));
+                    res.dirs.push(...temp.flatMap((item) => item.dirs));
                 }
-                const temp = fs.readdirSync(dir).flatMap((item) => scan(item, excludes, dir));
-                res.files.push(...temp.flatMap((item) => item.files));
-                res.dirs.push(...temp.flatMap((item) => item.dirs));
             } else {
                 res.files.push(dir);
             }
@@ -90,7 +95,8 @@ const sftp = (local: string, remote: string, options?: SftpOption) => {
                     debug && console.info('待创建文件夹数：' + dirs.length);
                     await Promise.all(
                         dirs.map(async (item) => {
-                            item = `${remote}/${path.relative(local, item)}`;
+                            item = linuxPath(remote, path.relative(local, item));
+                            debug && console.info(`创建文件夹：${item}`);
                             await exec(`mkdir -p ${item}`);
                             debug && console.info(`创建成功：${item}`);
                         })
@@ -103,7 +109,7 @@ const sftp = (local: string, remote: string, options?: SftpOption) => {
                             if (flat) {
                                 target = `${target}/${path.basename(file)}`;
                             } else {
-                                target = `${target}/${path.relative(local, file).replace(path.sep, '/')}`;
+                                target = linuxPath(target, path.relative(local, file));
                             }
                         }
                         return new Promise<void>((resolve, reject) => {
@@ -158,13 +164,25 @@ const resolveConfig = (options?: RunOption) => {
             console.error('解析配置文件失败', e);
         }
     }
-    if (!res.connect || !res.local || !res.remote) {
-        throw new Error('配置至少包含以下属性：connect、local、remote');
+    // TODO 支持秘钥登录
+    if (
+        !res.connect?.host ||
+        !res.connect?.port ||
+        !res.connect?.username ||
+        !res.connect?.password ||
+        !res.local ||
+        !res.remote
+    ) {
+        throw new Error(
+            '配置至少包含以下属性：connect.host、connect.port、connect.username、connect.password、local、remote'
+        );
     }
     return res;
 };
 export const run = (options?: RunOption) => {
-    const { connect, local, remote, sftpOptions, debug } = resolveConfig(options);
+    const config = resolveConfig(options);
+    const { connect, local, remote, sftpOptions, debug } = config;
+    debug && console.info(config);
     client
         .on('ready', async () => {
             debug && console.info('连接成功');
