@@ -9,8 +9,19 @@
 ## ⬇️ 使用方式
 
 ```cmd
+# 安装依赖
+npm install --global @xwink/sftp
 npm install --save-dev @xwink/sftp
-wink-sftp <local> <remote> [options]
+npx wink-sftp [options]
+
+# 查看使用帮助
+npx wink-sftp --help
+
+# 最少需要传入这六个参数
+npx wink-sftp -l ./dist -r /apps/myapp -h xxx.xxx.xxx.xxx -p 22 -u root -pwd 123456
+
+# 或者使用配置文件
+npx wink-sftp -c ./sftp.json
 ```
 
 ## 🎟️ 配置文件
