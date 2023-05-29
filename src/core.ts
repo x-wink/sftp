@@ -69,10 +69,11 @@ export interface SftpOption {
     clear?: boolean;
     override?: boolean;
     debug?: boolean;
+    mode?: number;
 }
 const sftp = (local: string, remote: string, options?: SftpOption) => {
     let { excludes = [] } = options ?? {};
-    const { flat = false, clear = false, override = false, debug = false } = options ?? {};
+    const { flat = false, clear = false, override = false, debug = false, mode = 0o777 } = options ?? {};
     excludes = excludes.map((item) => resolvePath(local, item));
     local = resolvePath(local);
     return new Promise<void>((resolve, reject) => {
@@ -115,7 +116,7 @@ const sftp = (local: string, remote: string, options?: SftpOption) => {
                         return new Promise<void>((resolve, reject) => {
                             debug && console.info(`开始传输：${file} => ${target}`);
                             const translate = () => {
-                                sftp.fastPut(file, target, { mode: 777 }, (err) => {
+                                sftp.fastPut(file, target, { mode }, (err) => {
                                     if (err) {
                                         reject(err);
                                         console.error(`传输失败：${file} => ${target}`);

@@ -21,6 +21,7 @@ program
     .option('-f --sftp-flat', '是否扁平化目录（本地文件夹下任意深度的文件都直接传输到远程文件夹下），默认为false')
     .option('-cls --sftp-clear', '是否在传输开始前清空远程文件夹，默认为false。慎用！删错了你别怪我！')
     .option('-o --sftp-override', '是否覆盖远程文件夹中已存在的文件，默认为false')
+    .option('-m --sftp-mode <mode>', '远程文件mode，默认为0o777')
     .action((options: Record<string, unknown>) => {
         const config = {
             local: options.local,
@@ -38,6 +39,7 @@ program
                 flat: options.sftpFlat,
                 clear: options.sftpClear,
                 override: options.sftpOverride,
+                mode: options.sftpMode,
                 debug: options.debug,
             },
         } as RunOption;
