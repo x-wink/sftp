@@ -24,6 +24,22 @@ npx wink-sftp -l ./dist -r /apps/myapp -h xxx.xxx.xxx.xxx -p 22 -u root -pwd 123
 npx wink-sftp -c ./sftp.json
 ```
 
+## 😅 目前问题
+
+> 如果使用`pnpm`安装依赖，使用`@vercel/ncc`可以正常打包，  
+> 但是如果改为`rollup`打包的话就会报错，必须使用`npm`安装依赖才行  
+> 经过排查是依赖`ssh2`引起的，错误信息为
+
+```
+E:\WorkSpace\wink-sftp\dist\src\index.js → dist/index.js...
+[!] RollupError: Could not resolve "../build/Release/cpufeatures.node" from "../build/Release/cpufeatures.node?commonjs-external"
+../build/Release/cpufeatures.node?commonjs-external
+    at error (E:\WorkSpace\wink-sftp\node_modules\.pnpm\rollup@3.23.0\node_modules\rollup\dist\shared\rollup.js:278:30)
+    at ModuleLoader.handleInvalidResolvedId (E:\WorkSpace\wink-sftp\node_modules\.pnpm\rollup@3.23.0\node_modules\rollup\dist\shared\rollup.js:24485:24)
+    at E:\WorkSpace\wink-sftp\node_modules\.pnpm\rollup@3.23.0\node_modules\rollup\dist\shared\rollup.js:24447:26
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+```
+
 ## 🎟️ 配置文件
 
 ```json

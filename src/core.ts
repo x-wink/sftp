@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { Client } from 'ssh2';
-import path from 'path';
-import fs from 'fs';
+import path from 'node:path';
+import fs from 'node:fs';
 const client = new Client();
 const resolvePath = (...paths: string[]) => path.resolve(...[process.cwd(), ...paths]);
 const linuxPath = (...paths: string[]) => path.join(...paths).replaceAll(path.sep, '/');
