@@ -6,7 +6,7 @@ import json from '@rollup/plugin-json';
 import babel from '@rollup/plugin-babel';
 import { RollupOptions } from 'rollup';
 export default {
-    input: path.resolve(process.cwd(), './dist/src/index.js'),
+    input: path.resolve(process.cwd(), './out/src/extension.js'),
     output: {
         file: path.resolve(process.cwd(), './dist/index.js'),
         format: 'cjs',

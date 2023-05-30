@@ -1,88 +1,71 @@
-<h1 align="center">欢迎使用我的SFTP命令行工具 👋</h1>
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
-  <a href="https://github.com/x-wink/wink-sftp#readme" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a>
-</p>
+# wink-vscode-sftp README
 
-## ⬇️ 使用方式
+This is the README for your extension "wink-vscode-sftp". After writing up a brief description, we recommend including the following sections.
 
-```cmd
-# 安装依赖
-npm install --global @xwink/sftp
-npm install --save-dev @xwink/sftp
-npx wink-sftp [options]
+## Features
 
-# 查看使用帮助
-npx wink-sftp --help
+Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
 
-# 最少需要传入这六个参数
-npx wink-sftp -l ./dist -r /apps/myapp -h xxx.xxx.xxx.xxx -p 22 -u root -pwd 123456
+For example if there is an image subfolder under your extension project workspace:
 
-# 或者使用配置文件
-npx wink-sftp -c ./sftp.json
-```
+\!\[feature X\]\(images/feature-x.png\)
 
-## 😅 目前问题
+> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 
-> 如果使用`pnpm`安装依赖，使用`@vercel/ncc`可以正常打包，  
-> 但是如果改为`rollup`打包的话就会报错，必须使用`npm`安装依赖才行  
-> 经过排查是依赖`ssh2`引起的，错误信息为
+## Requirements
 
-```
-E:\WorkSpace\wink-sftp\dist\src\index.js → dist/index.js...
-[!] RollupError: Could not resolve "../build/Release/cpufeatures.node" from "../build/Release/cpufeatures.node?commonjs-external"
-../build/Release/cpufeatures.node?commonjs-external
-    at error (E:\WorkSpace\wink-sftp\node_modules\.pnpm\rollup@3.23.0\node_modules\rollup\dist\shared\rollup.js:278:30)
-    at ModuleLoader.handleInvalidResolvedId (E:\WorkSpace\wink-sftp\node_modules\.pnpm\rollup@3.23.0\node_modules\rollup\dist\shared\rollup.js:24485:24)
-    at E:\WorkSpace\wink-sftp\node_modules\.pnpm\rollup@3.23.0\node_modules\rollup\dist\shared\rollup.js:24447:26
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-```
+If you have any requirements or dependencies, add a section describing those and how to install and configure them.
 
-## 🎟️ 配置文件
+## Extension Settings
 
-```json
-{
-    "local": "",
-    "remote": "",
-    "debug": false,
-    "connect": {
-        "host": "",
-        "port": 22,
-        "username": "",
-        "password": ""
-    },
-    "sftpOptions": {
-        "excludes": [],
-        "flat": false,
-        "clear": false,
-        "override": false,
-        "debug": false
-    }
-}
-```
+Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
 
-## 🎯 框架依赖
+For example:
 
--   [ssh2](github.com/mscdex/ssh2) 创建 SSH 连接
--   [commander](github.com/tj/commander.js) `nodejs`命令行解决方案
+This extension contributes the following settings:
 
-## 👤 Author
+-   `myExtension.enable`: Enable/disable this extension.
+-   `myExtension.thing`: Set to `blah` to do something.
 
-**向文可**
+## Known Issues
 
--   Email: 13202090601@163.com
--   Github: [@x-wink](https://github.com/x-wink)
+Calling out known issues can help limit users opening duplicate issues against your extension.
 
-## 🤝 Contributing
+## Release Notes
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/x-wink/libary-template/issues).
+Users appreciate release notes as you update your extension.
 
-## Show your support
+### 1.0.0
 
-Give a ⭐️ if this project helped you!
+Initial release of ...
+
+### 1.0.1
+
+Fixed issue #.
+
+### 1.1.0
+
+Added features X, Y, and Z.
 
 ---
 
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+## Following extension guidelines
+
+Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+
+-   [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+
+## Working with Markdown
+
+You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+
+-   Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
+-   Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
+-   Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+
+## For more information
+
+-   [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
+-   [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+
+**Enjoy!**
