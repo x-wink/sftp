@@ -45,6 +45,7 @@
         "prepare": "husky install"
     },
     "devDependencies": {
+        "@babel/core": "^7.22.1",
         "@commitlint/cli": "^17.4.1",
         "@commitlint/config-conventional": "^17.4.0",
         "@rollup/plugin-babel": "^6.0.3",
@@ -52,10 +53,10 @@
         "@rollup/plugin-json": "^6.0.0",
         "@rollup/plugin-node-resolve": "^15.0.2",
         "@rollup/plugin-typescript": "^11.1.1",
-        "@xwink/eslint-config": "^1.0.0",
         "@types/node": "^20.2.3",
         "@types/ssh2": "^1.11.11",
         "@vercel/ncc": "^0.36.1",
+        "@xwink/eslint-config": "^1.0.0",
         "bumpp": "^9.1.0",
         "conventional-changelog-cli": "^2.2.2",
         "eslint": "^8.35.0",
