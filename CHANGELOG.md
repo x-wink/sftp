@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/x-wink/wink-sftp/compare/v1.0.1...v1.0.2) (2023-08-22)
+
+### Features
+
+-   新增配置`ignoreHidden`是否忽略隐藏文件夹，默认`true` ([1b2eb68](https://github.com/x-wink/wink-sftp/commit/1b2eb6806cd116c1326a184d8a1e2250b9928354))
+
 ## [1.0.1](https://github.com/x-wink/wink-sftp/compare/v1.0.0...v1.0.1) (2023-05-29)
 
 ### Features
