@@ -18,7 +18,7 @@
     },
     "private": false,
     "files": [
-        "dist/src",
+        "dist/src/*.d.ts",
         "dist/index.js"
     ],
     "main": "dist/index.js",
