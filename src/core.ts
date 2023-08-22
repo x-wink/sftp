@@ -36,7 +36,7 @@ const exec = (command: string, debug = false) => {
         });
     });
 };
-const scan = (dir: string, excludes: string[] = [], parent = '') => {
+const scan = (dir: string, ignoreHidden: boolean, excludes: string[] = [], parent = '') => {
     const res = { dirs: [] as string[], files: [] as string[] };
     dir = path.resolve(parent, dir);
     if (excludes.includes(dir)) {
@@ -44,13 +44,13 @@ const scan = (dir: string, excludes: string[] = [], parent = '') => {
     } else {
         if (fs.existsSync(dir)) {
             if (fs.statSync(dir).isDirectory()) {
-                if (dir.split(path.sep).some((name) => name.indexOf('.') !== -1)) {
-                    console.info('跳过隐藏文件夹：' + dir);
+                if (ignoreHidden && dir.split(path.sep).some((name) => name.indexOf('.') !== -1)) {
+                    console.info('忽略隐藏文件夹：' + dir);
                 } else {
                     if (parent) {
                         res.dirs.push(dir);
                     }
-                    const temp = fs.readdirSync(dir).flatMap((item) => scan(item, excludes, dir));
+                    const temp = fs.readdirSync(dir).flatMap((item) => scan(item, ignoreHidden, excludes, dir));
                     res.files.push(...temp.flatMap((item) => item.files));
                     res.dirs.push(...temp.flatMap((item) => item.dirs));
                 }
@@ -70,10 +70,18 @@ export interface SftpOption {
     override?: boolean;
     debug?: boolean;
     mode?: number;
+    ignoreHidden?: boolean;
 }
 const sftp = (local: string, remote: string, options?: SftpOption) => {
     let { excludes = [] } = options ?? {};
-    const { flat = false, clear = false, override = false, debug = false, mode = 0o777 } = options ?? {};
+    const {
+        flat = false,
+        clear = false,
+        override = false,
+        debug = false,
+        mode = 0o777,
+        ignoreHidden = true,
+    } = options ?? {};
     excludes = excludes.map((item) => resolvePath(local, item));
     local = resolvePath(local);
     return new Promise<void>((resolve, reject) => {
@@ -84,7 +92,7 @@ const sftp = (local: string, remote: string, options?: SftpOption) => {
             } else {
                 debug && console.info(`SFTP开启成功：${local} => ${remote}`);
                 debug && console.info('开始扫描待传输文件列表');
-                const { dirs, files } = scan(local, excludes);
+                const { dirs, files } = scan(local, ignoreHidden, excludes);
                 debug && console.info('待传输文件数：' + files.length);
                 // 如果本地文件超过一个、本地文件只有一个而且有后缀但是远程路径没有后缀，则把远程路径当做目录
                 const remoteIsDir = files.length > 1 || (path.extname(files[0]) && !path.extname(remote));
