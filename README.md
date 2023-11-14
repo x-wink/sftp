@@ -68,6 +68,16 @@ E:\WorkSpace\wink-sftp\dist\src\index.js → dist/index.js...
 -   [ssh2](github.com/mscdex/ssh2) 创建 SSH 连接
 -   [commander](github.com/tj/commander.js) `nodejs`命令行解决方案
 
+---
+
+-   [Vite](https://cn.vitejs.dev/) 脚手架
+-   [Typescript](https://www.tslang.cn) JavaScript 的超集
+-   [Eslint](https://eslint.bootcss.com/) 可组装的 JavaScript 和 JSX 检查工具
+-   [Prettier](https://prettier.io/) 代码格式化程序
+-   [LintStaged](https://github.com/okonet/lint-staged#readme) 针对暂存的 git 文件运行检查
+-   [Husky](https://typicode.github.io/husky) 改善你的提交
+-   [CommitLint](https://github.com/conventional-changelog/commitlint#readme) 检查代码提交消息
+
 ## 👤 作者
 
 **向文可**
