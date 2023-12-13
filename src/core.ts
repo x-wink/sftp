@@ -167,6 +167,7 @@ const resolveConfig = (options: RunOption = {}) => {
     if (config) {
         try {
             res = JSON.parse(String(fs.readFileSync(resolvePath(config)))) as ResolvedConfig;
+            res.sftpOptions.debug ??= res.debug;
         } catch (e) {
             console.error('解析配置文件失败', e);
         }
