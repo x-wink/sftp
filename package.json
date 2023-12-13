@@ -13,6 +13,7 @@
         "email": "1041367524@qq.com",
         "url": "https://github.com/x-wink"
     },
+    "license": "MIT",
     "repository": {
         "url": "https://github.com/x-wink/wink-sftp"
     },
