@@ -37,10 +37,10 @@
     },
     "scripts": {
         "dev": "ts-node src/index.ts -c sftp.json",
-        "build:ncc": "set NODE_OPTIONS=--openssl-legacy-provider && tsc -emitDeclarationOnly && ncc build ./src/index.ts -o ./dist",
-        "build": "tsc && rollup --bundleConfigAsCjs --config dist/rollup.config.js",
+        "build": "set NODE_OPTIONS=--openssl-legacy-provider && tsc -emitDeclarationOnly && ncc build ./src/index.ts -o ./dist",
+        "build:rollup": "tsc && rollup --bundleConfigAsCjs --config dist/rollup.config.js",
         "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-        "release": "bumpp package.json --commit \"release: v%s\" --push --all --tag && pnpm run build && pnpm publish --access public",
+        "release": "pnpm run build && bumpp package.json --commit \"release: v%s\" --push --all --tag && pnpm publish --access public",
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
         "prettier": "prettier --write ./**/*.{vue,ts,tsx,js,jsx,css,less,json,md,html}",
         "prepare": "husky install"
@@ -57,7 +57,7 @@
         "@types/node": "^20.2.3",
         "@types/ssh2": "^1.11.11",
         "@vercel/ncc": "^0.36.1",
-        "@xwink/eslint-config": "1.1.1-beta.1",
+        "@xwink/eslint-config": "1.1.1",
         "bumpp": "^9.2.0",
         "conventional-changelog-cli": "^4.1.0",
         "eslint": "^8.53.0",
