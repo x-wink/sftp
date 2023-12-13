@@ -1,7 +1,8 @@
 #! /usr/bin/env node
 import { Command } from 'commander';
 import { name, version, description } from '../package.json';
-import { RunOption, SftpOption, run } from './core';
+import type { RunOption, SftpOption } from './core';
+import { run } from './core';
 const program = new Command();
 program.name(name).version(version).description(description);
 

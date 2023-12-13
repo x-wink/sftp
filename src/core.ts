@@ -47,9 +47,7 @@ const scan = (dir: string, ignoreHidden: boolean, excludes: string[] = [], paren
                 if (ignoreHidden && dir.split(path.sep).some((name) => name.indexOf('.') !== -1)) {
                     console.info('忽略隐藏文件夹：' + dir);
                 } else {
-                    if (parent) {
-                        res.dirs.push(dir);
-                    }
+                    res.dirs.push(dir);
                     const temp = fs.readdirSync(dir).flatMap((item) => scan(item, ignoreHidden, excludes, dir));
                     res.files.push(...temp.flatMap((item) => item.files));
                     res.dirs.push(...temp.flatMap((item) => item.dirs));
@@ -152,19 +150,19 @@ const sftp = (local: string, remote: string, options?: SftpOption) => {
         });
     });
 };
-export type RunOption = {
+export interface RunOption {
     connect?: Parameters<typeof client.connect>[0];
     local?: string;
     remote?: string;
     sftpOptions?: SftpOption;
     debug?: boolean;
     config?: string | false;
-};
+}
 type ResolvedConfig = {
     [k in keyof Omit<RunOption, 'config'>]-?: RunOption[k];
 };
-const resolveConfig = (options?: RunOption) => {
-    const { config = false } = options || {};
+const resolveConfig = (options: RunOption = {}) => {
+    const { config = false } = options;
     let res = options as ResolvedConfig;
     if (config) {
         try {
@@ -205,7 +203,7 @@ export const run = (options?: RunOption) => {
             client.destroy();
         })
         .on('error', (err) => {
-            debug && console.info('发生异常：' + err);
+            debug && console.info('发生异常：', err);
         })
         .on('timeout', () => {
             debug && console.info('会话超时');
