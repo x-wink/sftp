@@ -22,8 +22,10 @@ program
     .option('-f --sftp-flat', '是否扁平化目录（本地文件夹下任意深度的文件都直接传输到远程文件夹下），默认为false')
     .option('-cls --sftp-clear', '是否在传输开始前清空远程文件夹，默认为false。慎用！删错了你别怪我！')
     .option('-o --sftp-override', '是否覆盖远程文件夹中已存在的文件，默认为false')
-    .option('-i --sftp-ignoreHidden', '是否忽略隐藏文件夹，默认为true')
+    .option('-i --sftp-ignore-hidden', '是否忽略隐藏文件夹，默认为true')
     .option('-m --sftp-mode <mode>', '远程文件mode，默认为0o777')
+    .option('-brc --before-run-command <command>', '传输开始前要执行的命令，别瞎写！')
+    .option('-arc --after-run-command <command>', '传输完成后要执行的命令，别瞎写！')
     .action((options: Record<string, unknown>) => {
         const config = {
             local: options.local,
@@ -44,6 +46,8 @@ program
                 ignoreHidden: options.sftpIgnoreHidden,
                 mode: options.sftpMode,
                 debug: options.debug,
+                beforeRunCommand: options.beforeRunCommand,
+                afterRunCommand: options.afterRunCommand,
             } as SftpOption,
         } as RunOption;
         run(config);

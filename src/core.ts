@@ -69,6 +69,8 @@ export interface SftpOption {
     debug?: boolean;
     mode?: number;
     ignoreHidden?: boolean;
+    beforeRunCommand?: string;
+    afterRunCommand?: string;
 }
 const sftp = (local: string, remote: string, options?: SftpOption) => {
     let { excludes = [] } = options ?? {};
@@ -79,6 +81,8 @@ const sftp = (local: string, remote: string, options?: SftpOption) => {
         debug = false,
         mode = 0o777,
         ignoreHidden = true,
+        beforeRunCommand,
+        afterRunCommand,
     } = options ?? {};
     excludes = excludes.map((item) => resolvePath(local, item));
     local = resolvePath(local);
@@ -92,6 +96,7 @@ const sftp = (local: string, remote: string, options?: SftpOption) => {
                 debug && console.info('开始扫描待传输文件列表');
                 const { dirs, files } = scan(local, ignoreHidden, excludes);
                 debug && console.info('待传输文件数：' + files.length);
+                beforeRunCommand && (await exec(beforeRunCommand));
                 // 如果本地文件超过一个、本地文件只有一个而且有后缀但是远程路径没有后缀，则把远程路径当做目录
                 const remoteIsDir = files.length > 1 || (path.extname(files[0]) && !path.extname(remote));
                 if (remoteIsDir && clear) {
@@ -145,6 +150,7 @@ const sftp = (local: string, remote: string, options?: SftpOption) => {
                         });
                     })
                 );
+                afterRunCommand && (await exec(afterRunCommand));
                 resolve();
             }
         });
@@ -167,6 +173,7 @@ const resolveConfig = (options: RunOption = {}) => {
     if (config) {
         try {
             res = JSON.parse(String(fs.readFileSync(resolvePath(config)))) as ResolvedConfig;
+            res.sftpOptions ??= {};
             res.sftpOptions.debug ??= res.debug;
         } catch (e) {
             console.error('解析配置文件失败', e);

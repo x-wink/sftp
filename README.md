@@ -69,8 +69,9 @@ npx wink-sftp -c ./sftp.json
         "flat": false,
         "clear": false,
         "override": false,
-        "debug": false,
-        "ignoreHidden": true
+        "ignoreHidden": true,
+        "beforeRunCommand": "",
+        "afterRunCommand": ""
     }
 }
 ```
