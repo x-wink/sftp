@@ -1,3 +1,8 @@
+## <small>1.0.4 (2024-01-03)</small>
+
+-   feat: 新增传输前后执行命令 ([6d7c24d](https://github.com/x-wink/wink-sftp/commit/6d7c24d))
+-   conf: release script ([98a41a9](https://github.com/x-wink/wink-sftp/commit/98a41a9))
+
 ## <small>1.0.3 (2023-12-13)</small>
 
 -   doc: update package.json ([5543152](https://github.com/x-wink/wink-sftp/commit/5543152))

@@ -1,6 +1,6 @@
 {
     "name": "@xwink/sftp",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "远程部署SFTP工具",
     "keywords": [
         "ssh",
